@@ -1,0 +1,60 @@
+= Markable
+
+A module for adding Markaby to your classes.
+
+== Usage
+
+Simply include the module into a class and BOOM!  Your classes can output themselves in any format Markaby can generate.  Fun for the whole family.
+
+class Sample
+  include Markable
+  
+  attr_reader :title, :text
+  def initialize(title, text)
+    @title, @text = title, text
+  end
+  
+  def format
+    mab do
+      html do
+        head do
+          title @title
+        end
+        body do
+          p @text
+        end
+      end
+    end
+  end
+  
+end
+
+Or, we can see how easy it is to use methods are partial templates:
+
+class SampleWithHelpers
+  include Markable
+  
+  attr_reader :title, :text
+  def initialize(title, text)
+    @title, @text = title, text
+  end
+  
+  def format
+    mab do
+      html do
+        head do
+          title @title
+        end
+        body do
+          red_paragraph
+        end
+      end
+    end
+  end
+  
+  def red_paragraph
+    p :style => "red" do
+      @text
+    end
+  end
+end
